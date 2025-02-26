@@ -1,0 +1,33 @@
+metadata:
+  name: test plan with userspace
+  description: a classic job template
+  format: Linaro Test Plan v2
+
+tests:
+  automated:
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/fio-test/fio-test.yaml
+      name: fio-test
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/ethernet/ethernet.yaml
+      name: ethernet
+      branch: master
+      params:
+        INTERFACE: "eno8303"
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/dd-wr-speed/dd-wr-speed.yaml
+      name: dd-wr-speed
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/usb-smoke/usb-smoke-test.yaml
+      name: usb-smoke
+      branch: master

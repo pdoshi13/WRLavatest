@@ -1,0 +1,25 @@
+metadata:
+  name: test plan additional cases
+  description: additional test cases
+  format: Linaro Test Plan v2
+
+tests:
+  automated:
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/perf-bench/perf-bench.yaml
+      name: perf-bench
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/boottime/boottime.yaml
+      name: boottime
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/memory-usage/memory-usage.yaml
+      name: memory-usage
+      branch: master
+

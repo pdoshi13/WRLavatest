@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Results Viewer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <style>
+        .navbar {
+            background-color: white;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            height: 64px;
+        }
+        .nav-brand {
+            color: #111827;
+            font-size: 1.125rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .nav-brand i {
+            color: #2563eb;
+            font-size: 1.25rem;
+        }
+        .container {
+            padding-top: 1rem;
+        }
+
+        .bg-green-500 { background-color: #22c55e; color: white; }
+        .bg-lime-200 { background-color: #d9f99d; color: #166534; }
+        .bg-yellow-100 { background-color: #fef9c3; color: #854d0e; }
+        .bg-red-200 { background-color: #fecaca; color: #991b1b; }
+        .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
+        .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+        .rounded { border-radius: 0.25rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .font-bold { font-weight: bold; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f5f5f5; color: #333; min-height: 100vh; }
+        .container { min-height: 95vh; margin: 0 auto; padding: 20px; }
+        .dashboard-card { background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); padding: 1rem; margin-bottom: 1rem; overflow: auto; }
+        .test-details {
+            margin: 16px 24px;
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background-color: #f8fafc;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .test-details table.dataTable {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background-color: white;
+            margin: 16px 0 !important;
+        }
+        .test-details table.dataTable thead th {
+            background-color: #f1f5f9;
+            border-bottom: 2px solid #cbd5e1 !important;
+            color: #475569;
+            font-weight: 600;
+            padding: 12px 16px;
+        }
+        .test-details table.dataTable tbody td {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 16px;
+        }
+        .test-details table.dataTable tbody tr:last-child td {
+            border-bottom: none;
+        }
+        .test-details .status-filters {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 16px;
+        }
+        .card-title { font-size: 1.25rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f0f0f0; }
+        .status-filters { float: right; margin-bottom: 15px; padding: 10px 15px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e5e7eb; display: flex; align-items: center; gap: 10px; }
+        .radio-group { display: flex; gap: 15px; align-items: center; }
+        .radio-label { display: flex; align-items: center; gap: 5px; cursor: pointer; font-size: 0.9rem; color: #4b5563; }
+        .status-count { background: #d4eccb; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; color: #1e293b; margin-left: 5px; font-weight: 500; }
+        .tabs { display: flex; border-bottom: 2px solid #e5e7eb; margin-bottom: 1rem; }
+        .tab { padding: 0.5rem 1rem; cursor: pointer; border: none; background: none; font-size: 1rem; color: #6b7280; text-transform: capitalize; }
+        .tab.active { color: #3b82f6; border-bottom: 2px solid #3b82f6; margin-bottom: -2px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .summary-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 10px; }
+        .summary-card { padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #ddd; background-color: white; }
+        .summary-card i { font-size: 1.5em; margin-bottom: 8px; }
+        .summary-card h3 { font-size: 0.9em; margin: 5px 0; color: #666; }
+        .summary-card h2 { font-size: 1.2em; margin: 5px 0; font-weight: bold; }
+        .summary-card.pass i { color: #28a745; }
+        .summary-card.fail i { color: #dc3545; }
+        .summary-card.skip i { color: #ffc107; }
+        .summary-card.rate i { color: #17a2b8; }
+        td.details-control { cursor: pointer; text-align: center; width: 30px; padding-top: 12px !important; }
+        .fa-plus-circle, .fa-minus-circle { font-size: 16px; color: #0D6EFD; }
+        .table-container { margin: 0 -1.5rem; padding: 0 1.5rem; }
+        table.dataTable { border-collapse: collapse !important; border-spacing: 0 !important; width: 100% !important; }
+        table.dataTable thead th { border-bottom: 2px solid #e5e7eb !important; font-weight: 600; color: #4b5563; padding: 12px 8px; text-align: left; background-color: #f9fafb; }
+        table.dataTable tbody td { padding: 16px 8px; border-bottom: 1px solid #e5e7eb; vertical-align: middle; line-height: 1.5; }
+        table.dataTable.hover tbody tr:hover { background-color: #f9fafb; }
+        .dataTables_info, .dataTables_length, .dataTables_filter { color: #6b7280; padding: 0.5rem 0; }
+        .dataTables_filter input { border: 1px solid #d1d5db; border-radius: 4px; padding: 4px 8px; margin-left: 8px; }
+        .log-section { margin-top: 8px; padding: 8px; background-color: #f8f9fa; border-radius: 4px; }
+        .log-content { background-color: #222; color: #fff; padding: 16px; border-radius: 4px; font-family: monospace; white-space: pre-wrap; flex: 1; overflow-y: auto; margin-top: 15px; font-size: 14px; line-height: 1.5; }
+        .view-log-btn { background: #0D6EFD; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
+        .view-log-btn:hover { background: #0b5ed7; }
+        .log-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; }
+        .log-modal-content { position: relative; background: white; margin: 30px auto; padding: 20px; width: 90%; max-width: 1200px; border-radius: 8px; height: 85vh; display: flex; flex-direction: column; }
+        .close-modal { position: absolute; right: 20px; top: 20px; font-size: 24px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fa-solid fa-eye"></i>
+            Test Results Viewer
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="tabs">
+            {% for suite in test_suites %}
+            <button class="tab {% if loop.first %}active{% endif %}" onclick="switchTab('{{ suite.name }}')" data-tab="{{ suite.name }}">{{ suite.display_name }}</button>
+            {% endfor %}
+        </div>
+
+        {% for suite in test_suites %}
+        <div id="{{ suite.name }}" class="tab-content {% if loop.first %}active{% endif %}">
+            <div class="dashboard-card">
+                <h2 class="card-title">{{ suite.display_name }} - Overall Statistics</h2>
+                <div class="summary-section">
+                    <div class="summary-card pass">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Total Pass</h3>
+                        <h2>{{ suite.summary.pass }}</h2>
+                    </div>
+                    <div class="summary-card fail">
+                        <i class="fas fa-times-circle"></i>
+                        <h3>Total Fail</h3>
+                        <h2>{{ suite.summary.fail }}</h2>
+                    </div>
+                    <div class="summary-card skip">
+                        <i class="fas fa-forward"></i>
+                        <h3>Total Skip</h3>
+                        <h2>{{ suite.summary.skip }}</h2>
+                    </div>
+                    <div class="summary-card rate">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Pass Rate</h3>
+                        <h2>{{ "%.2f"|format(suite.summary.pass_rate) }}%</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-card">
+                <h2 class="card-title">Detailed Test Results</h2>
+                <div class="table-container">
+                    <table id="table-{{ suite.name }}" class="display hover stripe" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Test Suite</th>
+                                <th>Test ID</th>
+                                <th>Pass Rate</th>
+                                <th>Pass</th>
+                                <th>Fail</th>
+                                <th>Skip</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div id="logModal" class="log-modal">
+        <div class="log-modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Test Log</h3>
+            <div id="modalLogContent" class="log-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const suiteData = {{ test_data | tojson | safe }};
+
+        function formatDetails(d) {
+            const metrics = [...d.metrics].sort((a, b) => {
+                const order = { 'fail': 0, 'skip': 1, 'pass': 2 };
+                return order[a.result] - order[b.result];
+            });
+
+            const statusCounts = metrics.reduce((acc, m) => {
+                acc[m.result] = (acc[m.result] || 0) + 1;
+                return acc;
+            }, {});
+
+            const filterHtml = `
+                <div class="status-filters">
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="status-filter-${d.id}" value="all" checked>
+                            All <span class="status-count">${metrics.length}</span>
+                        </label>
+                        ${statusCounts.pass ? `
+                        <label class="radio-label">
+                            <input type="radio" name="status-filter-${d.id}" value="pass">
+                            Pass <span class="status-count bg-green-500">${statusCounts.pass}</span>
+                        </label>` : ''}
+                        ${statusCounts.fail ? `
+                        <label class="radio-label">
+                            <input type="radio" name="status-filter-${d.id}" value="fail">
+                            Fail <span class="status-count bg-red-200">${statusCounts.fail}</span>
+                        </label>` : ''}
+                        ${statusCounts.skip ? `
+                        <label class="radio-label">
+                            <input type="radio" name="status-filter-${d.id}" value="skip">
+                            Skip <span class="status-count bg-yellow-100">${statusCounts.skip}</span>
+                        </label>` : ''}
+                    </div>
+                    <button class="view-log-btn" onclick="showLog('${d.id}')">
+                        <i class="fas fa-file-alt"></i> View Log
+                    </button>
+                </div>
+            `;
+
+            const detailsTableId = `details-table-${d.id}`;
+            const getStatusBadgeClass = result => ({
+                'pass': 'bg-green-500',
+                'fail': 'bg-red-200',
+                'skip': 'bg-yellow-100'
+            })[result] || '';
+
+            let metricsHtml = `
+                <table id="${detailsTableId}" class="display compact" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Test Case</th>
+                            <th>Parameters</th>
+                            <th>Result</th>
+                            <th>Measurement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${metrics.map(m => `
+                            <tr data-status="${m.result}">
+                                <td>${m.test_case_id}</td>
+                                <td>${JSON.stringify(d.params)}</td>
+                                <td><span class="px-2 py-1 rounded ${getStatusBadgeClass(m.result)}">${m.result}</span></td>
+                                <td>${m.units ? `${m.measurement} ${m.units}` : m.measurement}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            const container = document.createElement('div');
+            container.className = 'test-details';
+            container.innerHTML = filterHtml + metricsHtml;
+            container.dataset.logContent = d.log_content;
+            setTimeout(() => {
+                const radioButtons = container.querySelectorAll(`input[name="status-filter-${d.id}"]`);
+                const table = container.querySelector(`#${detailsTableId}`);
+
+                $(table).DataTable({
+                    pageLength: 25,
+                    searching: true,
+                    info: true,
+                    order: [[0, 'asc']],
+                    dom: '<"top"f>rt<"bottom"lip>'
+                });
+
+                radioButtons.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        const dataTable = $(table).DataTable();
+                        const value = this.value;
+                        dataTable.column(2).search(value === 'all' ? '' : value, true, false).draw();
+                        dataTable.page.len(25);
+                    });
+                });
+            }, 0);
+
+            return container;
+        }
+
+        function showLog(id) {
+            const logModal = document.getElementById('logModal');
+            const modalContent = document.getElementById('modalLogContent');
+            const container = document.querySelector(`[data-log-content]`);
+            modalContent.textContent = container.dataset.logContent;
+            logModal.style.display = 'block';
+        }
+
+        document.querySelector('.close-modal').onclick = function() {
+            document.getElementById('logModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('logModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        function initializeDataTable(suiteName) {
+            const tableId = `#table-${suiteName}`;
+            return $(tableId).DataTable({
+                pageLength: 25,
+                data: suiteData[suiteName],
+                columns: [
+                    {
+                        className: 'details-control',
+                        orderable: false,
+                        data: null,
+                        defaultContent: '<i class="fas fa-plus-circle"></i>'
+                    },
+                    { data: 'test_type' },
+                    { data: 'id' },
+                    {
+                        data: 'summary.pass_rate',
+                        render: function(data) {
+                            let badgeClass = data === 100 ? 'bg-green-500' :
+                                           data >= 90 ? 'bg-lime-200' :
+                                           data < 80 ? 'bg-red-200' : 'bg-yellow-100';
+                            return `<span class="px-2 py-1 rounded ${badgeClass}">${data.toFixed(2)}%</span>`;
+                        }
+                    },
+                    { data: 'summary.pass' },
+                    { data: 'summary.fail' },
+                    { data: 'summary.skip' },
+                    { data: 'summary.total' }
+                ],
+                order: [[3, 'desc']]
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tables = {};
+            {% for suite in test_suites %}
+            tables['{{ suite.name }}'] = initializeDataTable('{{ suite.name }}');
+
+            $(`#table-{{ suite.name }} tbody`).on('click', 'td.details-control', function() {
+                const tr = $(this).closest('tr');
+                const row = tables['{{ suite.name }}'].row(tr);
+                const icon = $(this).find('i');
+
+                if (row.child.isShown()) {
+                    row.child.hide();
+                    tr.removeClass('shown');
+                    icon.removeClass('fa-minus-circle').addClass('fa-plus-circle');
+                } else {
+                    const details = formatDetails(row.data());
+                    row.child(details).show();
+                    tr.addClass('shown');
+                    icon.removeClass('fa-plus-circle').addClass('fa-minus-circle');
+                }
+            });
+            {% endfor %}
+        });
+    </script>
+</body>
+</html>

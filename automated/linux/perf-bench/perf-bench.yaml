@@ -1,0 +1,25 @@
+metadata:
+    name: perf-bench
+    format: "Lava-Test Test Definition 1.0"
+    description: "Perf is a profiler tool for Linux and is used to collect and analyze performance and trace data.
+                  This test runs following perf bench commands: sched, syscall, mem, futex, epoll, internals, breakpoint."
+    maintainer:
+        - xiangyu.dong@wrs.com
+    os:
+        - elxr
+        - wrlinux
+    scope:
+        - performance
+    environment:
+        - lava-test-shell
+    devices:
+        - Intel Archer City M
+
+params:
+    SKIP_INSTALL: false
+
+run:
+    steps:
+        - cd ./automated/linux/perf-bench/
+        - ./perf-bench.sh -s "${SKIP_INSTALL}"
+        - ../../utils/send-to-lava.sh ./output/result.txt

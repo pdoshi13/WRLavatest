@@ -1,0 +1,29 @@
+metadata:
+    name: memory-usage
+    format: "Lava-Test Test Definition 1.0"
+    description: |
+                  To get an overview of the system memory, calculate the total amount of
+                  actual memory used by the kernel and daemons after startup in steady
+                  running state.
+    maintainer:
+        - xiangyu.dong@wrs.com
+    os:
+        - elxr
+        - wrlinux
+    scope:
+        - performance
+    environment:
+        - lava-test-shell
+    devices:
+        - Intel Archer City M
+        - AMD ZYNQMP ZCU102
+        - NXP S32G399A VNP RDB3
+
+params:
+    SKIP_INSTALL: "false"
+
+run:
+    steps:
+        - cd ./automated/linux/memory-usage/
+        - ./memory-usage.sh -s "${SKIP_INSTALL}"
+        - ../../utils/send-to-lava.sh ./output/result.txt

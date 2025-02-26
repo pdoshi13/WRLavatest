@@ -1,0 +1,289 @@
+metadata:
+  name: test plan with for kselftest
+  description: a classic job template
+  format: Linaro Test Plan v2
+
+tests:
+  automated:
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-capabilities
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: capabilities
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-cgroup
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: cgroup
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-clone3
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: clone3
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-core
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: core
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-cpu-hotplug
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: cpu-hotplug
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-ftrace
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: ftrace
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-futex
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: futex
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-kcmp
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: kcmp
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-membarrier
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: membarrier
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-mincore
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: mincore
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-mm
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: mm
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-mount
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: mount
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-nsfs
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: nsfs
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-pid_namespace
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: pid_namespace
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-proc
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: proc
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-rlimits
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: rlimits
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-seccomp
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: seccomp
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-sigaltstack
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: sigaltstack
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-splice
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: splice
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-timens
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: timens
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-tmpfs
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: tmpfs
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-user
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: user
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      branch: "master"
+      history: False
+      lava-signal: kmsg
+      name: kselftest-vDSO
+      path: automated/linux/kselftest/kselftest.yaml
+      parameters:
+        TST_CMDFILES: vDSO
+        TESTPROG: kselftests_x86-64.tar.gz
+        TESTPROG_URL: http://pek-lava.wrs.com:8080/source/Kernel/kselftests_x86-64.tar.gz
+        SKIPFILE: skipfile-lkft.yaml
+

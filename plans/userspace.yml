@@ -1,0 +1,68 @@
+metadata:
+  name: test plan with userspace
+  description: a classic job template
+  format: Linaro Test Plan v2
+
+tests:
+  automated:
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/busybox/busybox.yaml
+      name: busybox
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/crypto/crypto.yaml
+      name: crypto
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/crypto/cryptsetup.yaml
+      name: cryptsetup
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/lamp/lamp.yaml
+      name: lamp
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/lshw/lshw.yaml
+      name: lshw
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/meminfo/meminfo.yaml
+      name: meminfo
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/network-basic/network-basic.yaml
+      name: network-basic
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/openssl/openssl-speed.yaml
+      name: openssl
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/smoke/smoke.yaml
+      name: smoke
+      branch: master
+
+    - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
+      from: git
+      path: automated/linux/toolchain-smoke/toolchain-smoke.yaml
+      name: toolchain-smoke
+      branch: master
+
+

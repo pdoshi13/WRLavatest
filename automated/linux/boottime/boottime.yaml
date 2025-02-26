@@ -1,0 +1,28 @@
+metadata:
+    name: boottime
+    format: "Lava-Test Test Definition 1.0"
+    description: |
+                  systemd provides a tool called systemd-analyze that can be used to
+                  show timing details about the boot process. 
+    maintainer:
+        - xiangyu.dong@wrs.com
+    os:
+        - elxr
+        - wrlinux
+    scope:
+        - performance
+    environment:
+        - lava-test-shell
+    devices:
+        - Intel Archer City M
+        - AMD ZYNQMP ZCU102
+        - NXP S32G399A VNP RDB3
+
+params:
+    SKIP_INSTALL: "false"
+
+run:
+    steps:
+        - cd ./automated/linux/boottime/
+        - ./boottime.sh -s "${SKIP_INSTALL}"
+        - ../../utils/send-to-lava.sh ./output/result.txt
