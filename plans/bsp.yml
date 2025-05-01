@@ -18,7 +18,7 @@ tests:
       name: ethernet
       branch: master
       params:
-        INTERFACE: "eno8303"
+        INTERFACE: "enp2s0"
 
     - repository: git://lxgit.wrs.com/users/lyang0/test-definition-hardware-validation
       from: git
