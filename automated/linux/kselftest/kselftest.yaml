@@ -32,7 +32,7 @@ params:
     # List of known unsupported test cases to be skipped
     SKIPLIST: ""
     # TESTPROG_URL: "http://testdata.validation.linaro.org/tests/kselftest/kselftest_aarch64.tar.gz"
-    TESTPROG_URL: "http://localhost/root/kselftests_x86-64_v6.1.123.tar.gz"
+    TESTPROG_URL: "http://localhost/WRLavatest/kselftests_x86-64_v6.1.123.tar.gz"
     #TESTPROG_URL: ""
     KSELFTEST_PATH: "/opt/kselftests/mainline/"
 
