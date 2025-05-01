@@ -28,7 +28,7 @@ metadata:
 
 params:
     SKIP_INSTALL: "False"
-    INTERFACE: "eth0"
+    INTERFACE: "eno1"
 
 run:
     steps:
